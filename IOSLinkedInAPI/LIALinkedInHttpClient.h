@@ -23,18 +23,9 @@
 /**
  *  Check if before AFNetworking 3.0
  */
-#if __has_include_next("AFNetworking/AFHTTPRequestOperationManager.h")
 
-#import <AFNetworking/AFHTTPRequestOperationManager.h>
-#define AFHTTPManager AFHTTPRequestOperationManager
-
-#elif __has_include_next("AFNetworking/AFHTTPSessionManager.h")
-
-#import <AFNetworking/AFHTTPSessionManager.h>
+#import "AFHTTPSessionManager.h"
 #define AFHTTPManager AFHTTPSessionManager
-#define isSessionManager 1
-
-#endif
 
 @class LIALinkedInApplication;
 

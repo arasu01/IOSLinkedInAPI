@@ -73,7 +73,6 @@
   NSString *accessTokenUrl = @"/uas/oauth2/accessToken?grant_type=authorization_code&code=%@&redirect_uri=%@&client_id=%@&client_secret=%@";
   NSString *url = [NSString stringWithFormat:accessTokenUrl, authorizationCode, [self.application.redirectURL LIAEncode], self.application.clientId, self.application.clientSecret];
 
-#ifdef isSessionManager // check if should use AFHTTPSessionManager or AFHTTPRequestOperationManager
     [self POST:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         [self storeCredentials:responseObject];
@@ -82,17 +81,6 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
     }];
-#else
-      [self POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-          
-          [self storeCredentials:responseObject];
-          success(responseObject);
-          
-      }  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failure(error);
-      }];
-#endif
-
 }
 
 - (void)storeCredentials:(id _Nullable)responseObject {
